@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "interview"
+version = "0.1.0"
+description = ""
+authors = ["Morten Hauge <morten.hauge@telenor.no>"]
+readme = "README.md"
+packages = [{include = "interview"}]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+pydantic = "^1.10.6"
+redis = "^4.5.1"
+
+
+[tool.poetry.group.dev.dependencies]
+black = "^23.1.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

@@ -1,0 +1,11 @@
+version: "3"
+services:
+  redis:
+    image: redis:5.0-alpine
+    restart: always
+    command: redis-server --save 20 1 --loglevel warning --requirepass super-secret
+    ports:
+      - "5000:6379"
+
+networks:
+  internal:

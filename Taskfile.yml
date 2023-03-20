@@ -1,0 +1,35 @@
+version: "3"
+
+env:
+  REDIS_PASSWORD: super-secret
+
+vars:
+  EVENT_LIMIT: 150 # Change this variable to adjust the number of events being inserted by `add-events`
+  GLOBAL_SPIKE_THRESHOLD: 25
+  LOCAL_SPIKE_TRESHOLD: 50
+
+tasks:
+  add-events:
+    desc: "Add a number of events to the redis queue"
+    cmds:
+      - EVENT_LIMIT={{.EVENT_LIMIT}} poetry run python3 interview/add_events.py
+
+  local-spike:
+    desc: "Create a local spike on one or more customers"
+    cmds:
+      - LOCAL_SPIKE_THRESHOLD={{.LOCAL_SPIKE_THRESHOLD}} poetry run python3 interview/local_spike.py
+
+  global-spike:
+    desc: "Create a global spike on one or more customers"
+    cmds:
+      - GLOBAL_SPIKE_THRESHOLD={{.GLOBAL_SPIKE_THRESHOLD}}  poetry run python3 interview/global_spike.py
+
+  clear:
+    desc: "Clear the queue of all events"
+    cmds:
+      - poetry run python3 interview/clear.py
+
+  verify:
+    desc: "Verify that you have set up your environment correctly"
+    cmds:
+      - poetry run python3 interview/verify.py
