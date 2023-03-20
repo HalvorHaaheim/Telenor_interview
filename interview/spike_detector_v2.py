@@ -44,6 +44,8 @@ for event_str in events_queue:
 
     # Making a loop to count spikes and notice anomalies
     for e in events_queue:
+        if e == event_str:
+            continue  # skip the current event being processed to stop duplicating checks
         e_dict = r.get(e.decode('utf-8'))
         e_dict = json.loads(e_dict)
         if e_dict.get('rule_name') == event_dict.get('rule_name') and e_dict.get('customer_id') == event_dict.get('customer_id') and e_dict.get('env') == event_dict.get('env'):
@@ -62,6 +64,8 @@ for event_str in events_queue:
 # Remove all events from Redis
 clear_redis()
 
+# print("The following events will be kept: ")
+# print(events_to_keep)
 # Push the events to be kept back onto Redis
 add_events_to_redis(events=events_to_keep)
 
