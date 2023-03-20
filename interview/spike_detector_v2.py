@@ -16,12 +16,10 @@ from utils import (
 # Connect to redis
 r = redis.Redis(host="localhost", port=5000, password="super-secret")
 
-# Assuming that we expect no more than 10 alerts per minute for a given rule_name and customer_id combination in a
-# normal situation.
+# Setting local threshold
 local_spike_threshold = 10
 
-# Assuming that we expect no more than 100 alerts per minute for a given rule_name across all customers in a normal
-# situation.
+# Setting global threshold
 global_spike_threshold = 20
 
 # Create a list to hold events that will be kept
